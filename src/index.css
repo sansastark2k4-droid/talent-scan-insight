@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 97%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -15,23 +15,23 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* AI-focused primary colors */
-    --primary: 250 84% 54%;
+    /* SkillLens energetic colors */
+    --primary: 211 100% 50%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 250 100% 70%;
+    --primary-glow: 211 100% 70%;
     
-    /* Professional secondary palette */
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Neon purple secondary */
+    --secondary: 271 76% 53%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 270 95% 75%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 120 61% 50%;
+    --accent-foreground: 0 0% 100%;
 
     /* Success/scoring colors */
-    --success: 142 76% 36%;
+    --success: 120 61% 50%;
     --success-foreground: 0 0% 100%;
     --warning: 48 96% 53%;
     --warning-foreground: 222.2 47.4% 11.2%;
@@ -86,20 +86,20 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 250 100% 70%;
+    --primary: 211 100% 60%;
     --primary-foreground: 222.2 84% 4.9%;
-    --primary-glow: 250 84% 54%;
+    --primary-glow: 211 100% 50%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 271 76% 63%;
+    --secondary-foreground: 222.2 84% 4.9%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 270 95% 75%;
+    --accent: 120 61% 60%;
     --accent-foreground: 222.2 84% 4.9%;
 
-    --success: 142 76% 36%;
+    --success: 120 61% 50%;
     --success-foreground: 0 0% 100%;
     --warning: 48 96% 53%;
     --warning-foreground: 222.2 84% 4.9%;

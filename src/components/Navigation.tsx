@@ -1,9 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { Brain, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
+    }
+  };
+
+  const handleSignIn = () => {
+    toast.success("Sign In functionality coming soon!");
+  };
+
+  const handleGetStarted = () => {
+    scrollToSection('upload');
+    toast.info("Upload your resumes to get started!");
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
@@ -15,32 +33,32 @@ export const Navigation = () => {
               <Brain className="h-6 w-6 text-primary-foreground" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              ResumeAI
+              SkillLens
             </span>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#dashboard" className="text-muted-foreground hover:text-primary transition-smooth">
+            <button onClick={() => scrollToSection('dashboard')} className="text-muted-foreground hover:text-primary transition-smooth">
               Dashboard
-            </a>
-            <a href="#candidates" className="text-muted-foreground hover:text-primary transition-smooth">
+            </button>
+            <button onClick={() => scrollToSection('candidates')} className="text-muted-foreground hover:text-primary transition-smooth">
               Candidates
-            </a>
-            <a href="#analytics" className="text-muted-foreground hover:text-primary transition-smooth">
+            </button>
+            <button onClick={() => scrollToSection('analytics')} className="text-muted-foreground hover:text-primary transition-smooth">
               Analytics
-            </a>
-            <a href="#skills" className="text-muted-foreground hover:text-primary transition-smooth">
+            </button>
+            <button onClick={() => scrollToSection('skills')} className="text-muted-foreground hover:text-primary transition-smooth">
               Skills Analysis
-            </a>
+            </button>
           </div>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" className="border-primary/20 hover:bg-primary/5">
+            <Button variant="outline" onClick={handleSignIn} className="border-primary/20 hover:bg-primary/5">
               Sign In
             </Button>
-            <Button className="gradient-primary text-primary-foreground shadow-glow">
+            <Button onClick={handleGetStarted} className="gradient-primary text-primary-foreground shadow-glow">
               Get Started
             </Button>
           </div>
@@ -58,23 +76,23 @@ export const Navigation = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-border/50">
             <div className="flex flex-col space-y-4">
-              <a href="#dashboard" className="text-muted-foreground hover:text-primary transition-smooth">
+              <button onClick={() => scrollToSection('dashboard')} className="text-muted-foreground hover:text-primary transition-smooth text-left">
                 Dashboard
-              </a>
-              <a href="#candidates" className="text-muted-foreground hover:text-primary transition-smooth">
+              </button>
+              <button onClick={() => scrollToSection('candidates')} className="text-muted-foreground hover:text-primary transition-smooth text-left">
                 Candidates
-              </a>
-              <a href="#analytics" className="text-muted-foreground hover:text-primary transition-smooth">
+              </button>
+              <button onClick={() => scrollToSection('analytics')} className="text-muted-foreground hover:text-primary transition-smooth text-left">
                 Analytics
-              </a>
-              <a href="#skills" className="text-muted-foreground hover:text-primary transition-smooth">
+              </button>
+              <button onClick={() => scrollToSection('skills')} className="text-muted-foreground hover:text-primary transition-smooth text-left">
                 Skills Analysis
-              </a>
+              </button>
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="outline" className="border-primary/20 hover:bg-primary/5">
+                <Button variant="outline" onClick={handleSignIn} className="border-primary/20 hover:bg-primary/5">
                   Sign In
                 </Button>
-                <Button className="gradient-primary text-primary-foreground shadow-glow">
+                <Button onClick={handleGetStarted} className="gradient-primary text-primary-foreground shadow-glow">
                   Get Started
                 </Button>
               </div>

@@ -1,8 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Brain, Users, BarChart3 } from "lucide-react";
+import { toast } from "sonner";
 import heroImage from "@/assets/hero-dashboard.jpg";
 
 export const HeroSection = () => {
+  const scrollToUpload = () => {
+    const element = document.getElementById('upload');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleStartScreening = () => {
+    scrollToUpload();
+    toast.success("Ready to screen resumes! Upload your files below.");
+  };
+
+  const handleViewDemo = () => {
+    const element = document.getElementById('analytics');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      toast.info("Check out our analytics dashboard below!");
+    }
+  };
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background gradient */}
@@ -26,7 +46,7 @@ export const HeroSection = () => {
         </div>
 
         <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-          AI Resume Screener
+          SkillLens AI
         </h1>
         
         <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
@@ -36,10 +56,10 @@ export const HeroSection = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <Button size="lg" className="gradient-primary text-primary-foreground shadow-glow transition-spring hover:shadow-elevated">
+          <Button size="lg" onClick={handleStartScreening} className="gradient-primary text-primary-foreground shadow-glow transition-spring hover:shadow-elevated">
             Start Screening <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
-          <Button variant="outline" size="lg" className="border-primary/20 hover:bg-primary/5">
+          <Button variant="outline" size="lg" onClick={handleViewDemo} className="border-primary/20 hover:bg-primary/5">
             View Demo
           </Button>
         </div>

@@ -3,15 +3,32 @@ import { Button } from "@/components/ui/button";
 import { Upload, FileText, Zap, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { Progress } from "@/components/ui/progress";
+import { toast } from "sonner";
 
 export const UploadSection = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
-  const handleUpload = () => {
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+    if (files.length > 0) {
+      setUploadedFiles(files);
+      toast.success(`${files.length} file(s) selected for processing!`);
+      handleUpload(files);
+    }
+  };
+
+  const handleUpload = (files: File[] = uploadedFiles) => {
+    if (files.length === 0) {
+      toast.error("Please select files first!");
+      return;
+    }
+    
     setIsUploading(true);
     setUploadProgress(0);
+    toast.info(`Processing ${files.length} resume files...`);
     
     // Simulate upload progress
     const interval = setInterval(() => {
@@ -20,6 +37,7 @@ export const UploadSection = () => {
           clearInterval(interval);
           setIsUploading(false);
           setIsComplete(true);
+          toast.success(`Successfully processed ${files.length} resumes!`);
           return 100;
         }
         return prev + 10;
@@ -27,8 +45,23 @@ export const UploadSection = () => {
     }, 200);
   };
 
+  const handleViewResults = () => {
+    const element = document.getElementById('candidates');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    toast.info("Check out your candidate results below!");
+  };
+
+  const resetUpload = () => {
+    setIsComplete(false);
+    setUploadProgress(0);
+    setUploadedFiles([]);
+    toast.info("Ready for new uploads!");
+  };
+
   return (
-    <section className="py-16 px-6">
+    <section id="upload" className="py-16 px-6">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -66,7 +99,18 @@ export const UploadSection = () => {
                     <p className="text-muted-foreground mb-4">
                       Drop your resume files here or click to select
                     </p>
-                    <Button onClick={handleUpload} className="gradient-primary text-primary-foreground shadow-glow">
+                    <input
+                      type="file"
+                      multiple
+                      accept=".pdf,.doc,.docx"
+                      onChange={handleFileSelect}
+                      className="hidden"
+                      id="file-upload-input"
+                    />
+                    <Button 
+                      onClick={() => document.getElementById('file-upload-input')?.click()}
+                      className="gradient-primary text-primary-foreground shadow-glow"
+                    >
                       <Upload className="mr-2 h-4 w-4" />
                       Choose Files
                     </Button>
@@ -80,18 +124,17 @@ export const UploadSection = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2 text-success">Upload Complete!</h3>
                 <p className="text-muted-foreground mb-6">
-                  Successfully processed 24 resumes. View results below.
+                  Successfully processed {uploadedFiles.length} resumes. View results below.
                 </p>
-                <Button 
-                  onClick={() => {
-                    setIsComplete(false);
-                    setUploadProgress(0);
-                  }} 
-                  className="gradient-primary text-primary-foreground shadow-glow"
-                >
-                  <Zap className="mr-2 h-4 w-4" />
-                  View Results
-                </Button>
+                <div className="flex gap-4 justify-center">
+                  <Button onClick={handleViewResults} className="gradient-primary text-primary-foreground shadow-glow">
+                    <Zap className="mr-2 h-4 w-4" />
+                    View Results
+                  </Button>
+                  <Button variant="outline" onClick={resetUpload}>
+                    Upload More
+                  </Button>
+                </div>
               </div>
             )}
           </div>
